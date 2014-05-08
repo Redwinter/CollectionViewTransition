@@ -64,11 +64,19 @@
         self.imageView.layer.borderWidth = 3.0;
         self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
         
+        // custom rounding
+        //[self.imageView.layer setCornerRadius:4.0];
+        
         // Define how the edges of the layer are rasterized for each of the four edges
         // (left, right, bottom, top) if the corresponding bit is set the edge will be antialiased
         //
         self.imageView.layer.edgeAntialiasingMask =
             kCALayerLeftEdge | kCALayerRightEdge | kCALayerBottomEdge | kCALayerTopEdge;
+        
+        // custom shadow code
+        [self.layer setShadowColor:[UIColor blackColor].CGColor];
+        [self.layer setShadowOpacity:0.8];
+        [self.layer setShadowOffset:CGSizeMake(-2, -2)];
         
         [[self contentView] addSubview:self.imageView];
     }

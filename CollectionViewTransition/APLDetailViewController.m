@@ -60,6 +60,8 @@
 {
     // setup our image view if an image was set to this view controller
     self.imageView.image = self.image;
+    
+    
 }
 
 @end

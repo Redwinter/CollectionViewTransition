@@ -29,9 +29,11 @@
         // make sure we know about our cell prototype so dequeueReusableCellWithReuseIdentifier can work
         [self.collectionView registerClass:[APLCollectionViewCell class] forCellWithReuseIdentifier:CELL_ID];
         
-        //TODO: try live image URLS from JSON maybe if Getty provides
-        self.imageURLS = [[NSMutableArray alloc] initWithObjects:@"http://tinyurl.com/qezd53j", @"http://tinyurl.com/murmbuk", @"http://tinyurl.com/mefege3", @"http://tinyurl.com/o4s6vpc", nil];
-        //[self getImageURLsForCategory:@"ACategoryName" inSize:nil];
+       
+        self.imageURLS = [[NSMutableArray alloc] initWithObjects:@"http://tinyurl.com/qezd53j", @"http://tinyurl.com/murmbuk", @"http://tinyurl.com/mefege3", @"http://tinyurl.com/o4s6vpc", @"http://tinyurl.com/kth34vq",@"http://tinyurl.com/n9n4abz", nil];
+        
+         //TODO: try live image URLS from JSON maybe if Getty provides call?
+        //self.imageURLS = [self getImageURLsForCategory:@"ACategoryName" inSize:nil];
         
     }
     return self;
@@ -92,7 +94,7 @@
 
 #pragma mark -JSON PARSING-
 // JSON call if we want to try live URLS
-- (void)getImageURLsForCategory:(id)category inSize:(id)size
+- (NSMutableArray*)getImageURLsForCategory:(id)category inSize:(id)size
 {
     NSLog(@"Fetching images for category %@ in size:%@", category, size);
     
@@ -134,6 +136,8 @@
      }
      **/
     
+    NSMutableArray *imageURLArr = [[NSMutableArray alloc]initWithCapacity:20];
+    
     // tell us what's in the JSON & put the image URLs we need in the array
     if (JSONDict) {
         [self.imageURLS removeAllObjects]; // out with the old
@@ -142,12 +146,16 @@
         NSLog(@"getImageURLS JSON contains key:%@, value:%@", key, obj);
         
         // TODO: add actual checkers
+        if ([imageURLArr count] == MAX_COUNT) {
+            *stop = YES;
+        }
         if ([key isEqualToString:@"putActualImageKeyHere"] && YES) {
             // insert an image into the stored list so we can fetch it via URL
-            [self.imageURLS addObject:obj];
+            [imageURLArr addObject:obj];
         }
     }];
     
+    return imageURLArr;
 }
 
 @end

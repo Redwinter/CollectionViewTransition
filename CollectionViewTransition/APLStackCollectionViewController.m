@@ -56,6 +56,7 @@
 {
     [super viewDidAppear:animated];
     
+    
     // NOTE: the following line of code is necessary to work around a bug in UICollectionView,
     // when you transition back to this view controller from a pinch inward gesture,
     // the z-ordering of the stacked photos may be wrong.
